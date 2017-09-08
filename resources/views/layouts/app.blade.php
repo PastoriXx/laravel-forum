@@ -28,7 +28,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/posts') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -71,7 +71,12 @@
             </div>
         </nav>
 
+        @include('layouts._alerts')
+
         @yield('content')
+
+        @include('layouts._footer')
+
     </div>
 
     <!-- Scripts -->

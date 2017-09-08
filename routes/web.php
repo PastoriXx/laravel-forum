@@ -20,6 +20,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
 
 	Route::resource('posts', 'PostController');
+	Route::post('posts/{post}/comment', 'CommentController@store')->name('posts.comment');
 	Route::resource('profile', 'ProfileController');
 
 });

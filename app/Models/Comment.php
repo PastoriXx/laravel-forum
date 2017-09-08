@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Post;
 use App\Models\User;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -40,5 +41,15 @@ class Comment extends Model
     public function post()
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function (self $model) {
+            $model->user_id = Auth::id();
+        });
+
     }
 }

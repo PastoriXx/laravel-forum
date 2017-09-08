@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Comment;
 use App\Models\User;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -40,5 +41,27 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Scope a query to only include allowed users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllowed($query)
+    {
+        return $query->where($this->getTable() . '.user_id', Auth::id());
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function (self $model) {
+            $model->user_id = Auth::id();
+        });
+
     }
 }

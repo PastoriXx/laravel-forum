@@ -5,14 +5,18 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">
+                    <div class="pull-right">
+                        <a class="btn btn-xs btn-success" href="{{ route('posts.create') }}">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            Create post
+                        </a>
+                    </div>
+
+                    <h4>Dashboard</h4>
+                </div>
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
                     <div class="list-group">
                         @foreach($posts as $post)
@@ -25,6 +29,8 @@
                             </a>
                         @endforeach
                     </div>
+
+                    {{ $posts->links() }}
                 </div>
             </div>
         </div>
