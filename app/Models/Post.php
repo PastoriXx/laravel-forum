@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Comment;
 use App\Models\User;
 use Auth;
+use Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -22,6 +23,13 @@ class Post extends Model
      * @var array
      */
     protected $fillable = ['name', 'message'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['counters'];
 
     /**
      * User relationship
@@ -44,6 +52,22 @@ class Post extends Model
     }
 
     /**
+     * Get post counters
+     * @return array
+     */
+    public function getCountersAttribute()
+    {
+        $comments = Cache::remember("{$this->getTable()}:{$this->id}:counters", 60, function () {
+            return $this->comments()->count();
+        });
+
+        return [
+            'comments' => $comments,
+            // 'likes' => $likes,
+        ];
+    }
+
+    /**
      * Scope a query to only include allowed users.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -63,5 +87,10 @@ class Post extends Model
             $model->user_id = Auth::id();
         });
 
+        static::deleting(function (self $model) {
+            $model->comments()->delete();
+
+            Cache::delete("post:{$id}");
+        });
     }
 }

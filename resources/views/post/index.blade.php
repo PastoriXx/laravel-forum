@@ -23,9 +23,12 @@
                 <a class="list-group-item" href="{{ route('posts.show', ['id' => $post->id]) }}">
                     <h4 class="list-group-item-heading">
                         {{ $post->name }}
-                        {{-- <span class="badge">14</span> --}}
                     </h4>
-                    <p class="list-group-item-text">{{ $post->created_at }}</p>
+                    <p class="list-group-item-text">
+                        <span class="label label-success">{!! $post->counters['comments'] !!} comments</span>
+                        {{-- <span class="label label-info">{!! $post->counters['likes'] !!} likes</span> --}}
+                        {{ $post->created_at }}
+                    </p>
                 </a>
             @endforeach
         </div>

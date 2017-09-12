@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Post;
 use App\Models\User;
 use Auth;
+use Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -49,6 +50,8 @@ class Comment extends Model
 
         static::saving(function (self $model) {
             $model->user_id = Auth::id();
+
+            Cache::increment("posts:{$model->post_id}:counters");
         });
 
     }
