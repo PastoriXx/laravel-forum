@@ -83,11 +83,10 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://pastorixx.github.io">Portfolio</a>
+                    <a href="https://github.com/PastoriXx">GitHub</a>
+                    <a href="https://www.linkedin.com/in/roman-khomenko-33322396">LinkedIn</a>
+                    <a href="https://plus.google.com/u/0/+RomanKhomenko9">Google Plus</a>
                 </div>
             </div>
         </div>
